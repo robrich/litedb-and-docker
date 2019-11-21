@@ -1,0 +1,27 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine as build
+
+WORKDIR /src
+COPY Site.csproj .
+RUN dotnet restore
+
+COPY . .
+RUN dotnet build -c Release
+
+# RUN dotnet test ...
+
+RUN dotnet publish -c Release -o /dist
+
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-alpine
+
+ENV ASPNETCORE_ENVIRONMENT Development
+ENV ASPNETCORE_URLS http://+:80
+EXPOSE 80
+
+WORKDIR /app
+
+VOLUME /app/db
+
+COPY --from=build /dist .
+
+CMD ["dotnet", "Site.dll"]

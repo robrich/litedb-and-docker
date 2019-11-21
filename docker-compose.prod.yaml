@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "5020:80"
+    volumes:
+      - "./db:/app/db"

@@ -1,0 +1,34 @@
+﻿@model List<PageView>
+
+@{
+    ViewBag.Title = "LiteDB Example";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewBag.Title</h1>
+    <p>This example shows how to run LiteDB in Docker.</p>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Url</th>
+                <th>Server</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>@row.Id</td>
+                    <td>@row.ViewDate.ToUniversalTime()</td>
+                    <td>@row.Url</td>
+                    <td>@row.Server</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
